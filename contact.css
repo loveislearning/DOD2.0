@@ -17,7 +17,7 @@ body {
 .contact-section {
   position: relative;
   min-height: 100vh;
-  background: url('../Images/') no-repeat center center/cover;
+  background: url('../Images/range.jpg') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +42,7 @@ body {
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  backdrop-filter: blur(15px);
+  /* backdrop-filter: blur(15px); */
   text-align: center;
 }
 
