@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DriveOnDemand - Your Car Marketplace</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="i.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main">
         <div class="hero">
-            <img src="..\Images\13674.jpg" 
+            <img src="https://m.media-amazon.com/images/I/710UUOvF-mL._UF894,1000_QL80_.jpg" 
            alt="Sleek sports car on a scenic road">
            <div class="overlayer">
             <header class="header">
                 <div class="logo">Drive On Demand</div>
                 <nav class="navbar">
                     <a href="#">Home</a>
-                    <a href="about.html">About</a>
+                    <a href="#">About</a>
                     <a href="#">Services</a>
-                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Contact Us</a>
                 </nav>
                 <div class="auth-buttons">
-                    <button class="Sign-In-btn">Sign In</button>
-                    <button class="Sign-Up-btn">Sign Up</button>
+                    <a href="#signin"><button class="Sign-In-btn">Sign In</button></a>
+                    <a href="#signup"><button class="Sign-Up-btn">Sign Up</button></a>
                 </div>
 
             </header>
@@ -55,6 +56,31 @@
                 <button class="btn btn-primary small">Find Rentals</button>
             </div>
            </section>
+           <div id="signin" class="overlay">
+                <div class="popup">
+                    <h2>Sign In</h2>
+                    <a class="close" href="#">&times;</a>
+                    <form>
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit" class="btn">Sign In</button>
+                    </form>
+                </div>
+            </div>
+
+  <!-- Sign Up Popup -->
+            <div id="signup" class="overlay">
+                <div class="popup">
+                    <h2>Sign Up</h2>
+                    <a class="close" href="#">&times;</a>
+                    <form>
+                        <input type="text" placeholder="Full Name" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="password" placeholder="Password" required>
+                        <button type="submit" class="btn">Sign Up</button>
+                    </form>
+                </div>
+            </div>
     </div>
 </body>
 </html>
