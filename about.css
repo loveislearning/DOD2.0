@@ -1,6 +1,6 @@
 /* General Styling */
 :root {
-    --primary-color: #007BFF; /* A vibrant blue for accents */
+    --primary-color: #E63946; /* A vibrant red for accents */
     --dark-bg: #1a1a1a;
     --text-light: #f4f4f4;
     --text-dark: #333;
@@ -129,7 +129,7 @@ section p {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 40px 0 rgba(0, 123, 255, 0.2);
+    box-shadow: 0 12px 40px 0 rgba(230, 57, 70, 0.3);
 }
 
 .service-card h3 {
@@ -142,7 +142,6 @@ section p {
    font-size: 1rem;
    text-align: center;
 }
-
 
 /* Team Section */
 .team-grid {
