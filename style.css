@@ -1,6 +1,4 @@
-/* ==============================
-   RESET + BASE STYLING
-============================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +7,11 @@
 }
 
 body {
-  background: #0b0b0b;   /* rich deep black */
+  background: #0b0b0b;   
   color: #eee;
   line-height: 1.6;
 }
 
-/* ==============================
-   COLORS (Luxury theme)
-============================== */
 :root {
   --gold: #d4af37;
   --black: #0b0b0b;
@@ -25,9 +20,6 @@ body {
   --white: #fff;
 }
 
-/* ==============================
-   NAVBAR
-============================== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -37,7 +29,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(212,175,55,0.2); /* subtle gold underline */
+  border-bottom: 1px solid rgba(212,175,55,0.2); 
 }
 
 .logo {
@@ -68,9 +60,6 @@ body {
   padding-bottom: 3px;
 }
 
-/* ==============================
-   HERO SECTION
-============================== */
 .hero {
   background: url("images/hero.jpeg") no-repeat center center/cover;
   height: 90vh;
@@ -86,7 +75,7 @@ body {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.65); /* luxury overlay */
+  background: rgba(0,0,0,0.65); 
 }
 
 .hero-text {
@@ -125,9 +114,6 @@ body {
   transform: translateY(-3px);
 }
 
-/* ==============================
-   FEATURED CARS / CAR GRID
-============================== */
 .featured {
   text-align: center;
   padding: 3rem 2rem;
@@ -179,9 +165,6 @@ body {
   box-shadow: 0 0 20px rgba(212,175,55,0.4);
 }
 
-/* ==============================
-   TEAM SECTION
-============================== */
 .team {
   text-align: center;
   padding: 3rem 2rem;
@@ -235,9 +218,6 @@ body {
   box-shadow: 0 0 20px rgba(212,175,55,0.4);
 }
 
-/* ==============================
-   PAGE HEADERS
-============================== */
 .page-header {
   text-align: center;
   padding: 3rem 2rem;
@@ -256,9 +236,6 @@ body {
   color: #ccc;
 }
 
-/* ==============================
-   FORMS
-============================== */
 .form-section {
   padding: 3rem 2rem;
   display: flex;
@@ -309,9 +286,6 @@ form button:hover {
   color: var(--white);
 }
 
-/* ==============================
-   ABOUT SECTION
-============================== */
 .about-content {
   padding: 3rem 2rem;
   max-width: 900px;
@@ -325,9 +299,6 @@ form button:hover {
   line-height: 1.8;
 }
 
-/* ==============================
-   FOOTER
-============================== */
 footer {
   background: var(--black);
   text-align: center;
@@ -343,9 +314,6 @@ footer span {
   font-weight: bold;
 }
 
-/* ==============================
-   RESPONSIVE DESIGN
-============================== */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
