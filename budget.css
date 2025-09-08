@@ -1,6 +1,4 @@
-/* ==============================
-   RESET + BASE STYLING
-============================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +7,11 @@
 }
 
 body {
-  background: #0b0b0b; /* deep black */
-  color: #e0e0e0; /* light silver text */
+  background: #0b0b0b; 
+  color: #e0e0e0; 
   line-height: 1.6;
 }
 
-/* ==============================
-   NAVBAR
-============================== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -29,7 +24,7 @@ body {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #c0c0c0; /* silver */
+  color: #c0c0c0; 
 }
 
 .nav-links {
@@ -40,18 +35,15 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  color: #c0c0c0; /* silver */
+  color: #c0c0c0; 
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: #4da6ff; /* light blue highlight */
+  color: #4da6ff; 
 }
 
-/* ==============================
-   HERO SECTION
-============================== */
 .hero {
   height: 90vh;
   background: url("images/budget-hero.jpg") center/cover no-repeat;
@@ -66,7 +58,7 @@ body {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6); /* dark overlay */
+  background: rgba(0, 0, 0, 0.6); 
 }
 
 .hero-text {
@@ -78,7 +70,7 @@ body {
 .hero-text h1 {
   font-size: 3rem;
   margin-bottom: 15px;
-  color: #c0c0c0; /* silver headline */
+  color: #c0c0c0; 
 }
 
 .hero-text p {
@@ -89,7 +81,7 @@ body {
 
 .btn {
   padding: 12px 25px;
-  background: #4da6ff; /* light blue button */
+  background: #4da6ff; 
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -102,9 +94,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* ==============================
-   FEATURED CARS
-============================== */
 .featured {
   padding: 50px;
   text-align: center;
@@ -152,9 +141,6 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
-/* ==============================
-   FOOTER
-============================== */
 footer {
   background: #111;
   color: #999;

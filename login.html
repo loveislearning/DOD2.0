@@ -1,66 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drive On Demand - Login / Sign Up</title>
-  <link rel="stylesheet" href="login.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive on Demand - Login & Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/login.css">
 </head>
 <body>
-  <div class="left">
-    <div class="logo">
-      <img src="logo.png" alt="Drive On Demand Logo" />
+    <nav class="top-nav">
+        <a href="./index.html" class="nav-link">Home</a>
+    </nav>
+    <div class="split-container">
+        
+        <div class="image-panel">
+            <div class="image-overlay-content">
+                <h1>Drive On Demand</h1>
+                <p>Your ride, your way.</p>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <div class="form-wrapper">
+                
+                <div id="login-form-container" class="form-container show">
+                    <form id="login-form">
+                        <h2>Login</h2>
+                        <div class="input-group">
+                            <label for="login-email" class="input-label">Email</label>
+                            <input type="email" id="login-email" placeholder="Enter your email" class="input-field" required>
+                            <p class="error-message" id="login-email-error">Please enter a valid email address.</p>
+                        </div>
+                        <div class="input-group">
+                            <label for="login-password" class="input-label">Password</label>
+                            <input type="password" id="login-password" placeholder="Enter your password" class="input-field" required>
+                             <span class="password-toggle-icon" id="toggle-login-password">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.12 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+                            </span>
+                             <p class="error-message" id="login-password-error">Password cannot be empty.</p>
+                        </div>
+                        <div class="form-actions">
+                             <a href="#" class="form-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <div class="spinner"></div>
+                            <span>Login</span>
+                        </button>
+                    </form>
+                    <div class="divider">OR</div>
+                    <button class="social-btn google-login-btn">
+                         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Google</title><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.854 3.188-1.782 4.104-1.292 1.292-3.142 2.644-7.058 2.644-5.348 0-9.688-4.34-9.688-9.688s4.34-9.688 9.688-9.688c3.03 0 5.092 1.252 6.694 2.766l2.53-2.528C19.214 1.832 16.11.8 12.48.8 5.826.8.8 5.827.8 12.482s5.027 11.682 11.682 11.682c6.456 0 11.238-4.52 11.238-11.378 0-.746-.072-1.452-.192-2.152H12.48z" fill="#FFFFFF"/></svg>
+                         <span>Continue with Google</span>
+                    </button>
+                    <p class="switch-form-prompt">
+                        Don't have an account? 
+                        <a href="#" id="show-signup" class="form-link">Sign Up</a>
+                    </p>
+                </div>
+
+                <div id="signup-form-container" class="form-container hide">
+                     <form id="signup-form">
+                        <h2>Create Account</h2>
+                        <div class="input-group">
+                            <label for="signup-name" class="input-label">Full Name</label>
+                            <input type="text" id="signup-name" placeholder="John Doe" class="input-field" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-email" class="input-label">Email</label>
+                            <input type="email" id="signup-email" placeholder="you@example.com" class="input-field" required>
+                            <p class="error-message" id="signup-email-error">Please enter a valid email address.</p>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-password" class="input-label">Password</label>
+                            <input type="password" id="signup-password" placeholder="••••••••" class="input-field" required>
+                             <span class="password-toggle-icon" id="toggle-signup-password" style="top: 2.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.12 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+                            </span>
+                            <div class="strength-meter" id="strength-meter">
+                                <div class="strength-meter-bars">
+                                    <div class="strength-bar"></div>
+                                    <div class="strength-bar"></div>
+                                    <div class="strength-bar"></div>
+                                    <div class="strength-bar"></div>
+                                </div>
+                                <span class="strength-meter-text" id="strength-text"></span>
+                            </div>
+                            <p class="error-message" id="signup-password-error">Password must be at least 8 characters.</p>
+                        </div>
+                         <div class="input-group">
+                            <label for="signup-confirm-password" class="input-label">Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" placeholder="••••••••" class="input-field" required>
+                             <span class="password-toggle-icon" id="toggle-confirm-password" style="top:2.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.12 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+                            </span>
+                            <p class="error-message" id="confirm-password-error">Passwords do not match.</p>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                             <div class="spinner"></div>
+                            <span>Create Account</span>
+                        </button>
+                    </form>
+                    <div class="divider">OR</div>
+                     <button class="social-btn google-signup-btn">
+                         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Google</title><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.854 3.188-1.782 4.104-1.292 1.292-3.142 2.644-7.058 2.644-5.348 0-9.688-4.34-9.688-9.688s4.34-9.688 9.688-9.688c3.03 0 5.092 1.252 6.694 2.766l2.53-2.528C19.214 1.832 16.11.8 12.48.8 5.826.8.8 5.827.8 12.482s5.027 11.682 11.682 11.682c6.456 0 11.238-4.52 11.238-11.378 0-.746-.072-1.452-.192-2.152H12.48z" fill="#FFFFFF"/></svg>
+                         <span>Sign up with Google</span>
+                    </button>
+                    <p class="switch-form-prompt">
+                        Already have an account? 
+                        <a href="#" id="show-login" class="form-link">Login</a>
+                    </p>
+                </div>
+                
+                <div id="details-form-container" class="form-container hide">
+                    <form id="details-form">
+                        <h2>Complete Your Profile</h2>
+                        <div class="input-group">
+                            <label for="phone" class="input-label">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="(123) 456-7890" class="input-field" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="address" class="input-label">Address</label>
+                            <input type="text" id="address" placeholder="123 Main St, Anytown, USA" class="input-field">
+                        </div>
+                        <div class="input-group">
+                            <label for="dob" class="input-label">Date of Birth</label>
+                            <input type="date" id="dob" class="input-field">
+                        </div>
+                        <button type="submit" class="submit-btn">
+                             <div class="spinner"></div>
+                             <span>Complete Profile</span>
+                        </button>
+                    </form>
+                     <p class="switch-form-prompt">
+                        <a href="#" id="back-to-login" class="form-link">Back to Login</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="overlay"></div>
-    <div class="brand-text">
-      <h1>Drive On Demand</h1>
-      <p>Your ride, your way.</p>
-    </div>
-  </div>
-
-  <div class="right">
-    <div class="form-box" id="login-box">
-      <h2>Login</h2>
-      <form id="login-form">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="login-email" placeholder="Enter your email" required />
+    <div id="success-modal" class="modal-overlay hide">
+        <div class="modal-content">
+            <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <h2 id="success-message-title">Success!</h2>
+            <p id="success-message-text">You will now be redirected.</p>
+            <button id="proceed-btn" class="submit-btn" style="max-width: 200px; margin: 1rem auto 0;">Continue</button>
         </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="login-password" placeholder="Enter your password" required />
-        </div>
-        <button class="btn" type="submit">Login</button>
-        <p class="toggle-text">Don’t have an account? <a href="#" id="show-signup">Sign Up</a></p>
-      </form>
-    </div>
-
-    <div class="form-box hidden" id="signup-box">
-      <h2>Sign Up</h2>
-      <form id="signup-form">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="signup-email" placeholder="Enter your email" required />
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="signup-password" placeholder="Enter your password" required />
-        </div>
-        <div class="form-group">
-          <label>Select Role</label>
-          <select id="signup-role" required>
-            <option value="">-- Choose --</option>
-            <option value="buyer">Buyer</option>
-            <option value="seller">Seller</option>
-          </select>
-        </div>
-        <button class="btn" type="submit">Sign Up</button>
-        <p class="toggle-text">Already have an account? <a href="#" id="show-login">Login</a></p>
-      </form>
-    </div>
-  </div>
-
-  <script type="module" src="login.js"></script>
+      </div>
+      <script src="/login.js"></script>
 </body>
 </html>
+
