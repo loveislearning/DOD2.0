@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drive on Demand - Login & Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <nav class="top-nav">
@@ -46,6 +46,11 @@
                             <div class="spinner"></div>
                             <span>Login</span>
                         </button>
+                        
+                        <p class="error-message" id="login-generic-error" 
+                           style="text-align: center; margin-top: 1rem;">
+                           Invalid email or password.
+                        </p>
                     </form>
                     <div class="divider">OR</div>
                     <button class="social-btn google-login-btn">
@@ -148,7 +153,7 @@
             <button id="proceed-btn" class="submit-btn" style="max-width: 200px; margin: 1rem auto 0;">Continue</button>
         </div>
       </div>
-      <script src="/login.js"></script>
+      
+      <script src="login.js"></script>
 </body>
 </html>
-

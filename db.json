@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": "c376",
+      "name": "Shally Chauhan",
+      "email": "shallychauhan127@gmail.com",
+      "password": "Shally@3003",
+      "phone": "08837830890"
+    },
+    {
+      "id": "351a",
+      "name": "Shally Chauhan",
+      "email": "shallychauhan2006@gmail.com",
+      "password": "Shally@0330"
+    },
+    {
+      "id": "b45b",
+      "name": "Simon ",
+      "email": "simonhambiria@gmail.com",
+      "password": "Simon@796"
+    },
+    {
+      "id": "c22d",
+      "name": "Sidhant",
+      "email": "sidhant007.28@gmail.com",
+      "password": "Sidhant007"
+    },
+    {
+      "id": "a89b",
+      "name": "Sujal",
+      "email": "sujalkandari@gmail.com",
+      "password": "sujal@1234"
+    }
+  ]
+}
