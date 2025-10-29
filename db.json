@@ -30,6 +30,14 @@
       "name": "Sujal",
       "email": "sujalkandari@gmail.com",
       "password": "sujal@1234"
+    },
+    {
+      "id": "9a99",
+      "name": "Sherani Goyal",
+      "email": "sheranigoyal@gmail.com",
+      "password": "sherani12",
+      "phone": "09316117306"
     }
-  ]
+  ],
+  "cars":[]
 }

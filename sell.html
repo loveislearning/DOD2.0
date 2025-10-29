@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sell Car - Drive On Demand</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
@@ -12,9 +12,9 @@
       <div class="logo">Drive On Demand</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="buy.html">Luxury cars</a></li>
-         <li><a href="budget.html">Budget Cars</a></li>
-        <li><a href="sell.html">Sell</a></li>
+        <li><a href="buy.html">Luxury Cars</a></li>
+        <li><a href="budget.html">Budget Cars</a></li>
+        <li><a href="sell.html" class="active">Sell</a></li>
         <li><a href="rent.html">Rent</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact Us</a></li>
@@ -29,13 +29,72 @@
   </section>
 
   <section class="form-section">
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="text" placeholder="Car Model" required>
-      <input type="text" placeholder="Car Price Expectation" required>
+    <form id="sellForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="model" placeholder="Car Model" required />
+      <input type="text" id="price" placeholder="Car Price Expectation" required />
       <button type="submit">Submit</button>
     </form>
   </section>
+
+  <script>
+    document.getElementById("sellForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // ✅ Check login
+      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (!loggedInUser) {
+        alert("⚠️ You must be logged in to list a car!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // ✅ Collect form data
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const model = document.getElementById("model").value.trim();
+      const price = document.getElementById("price").value.trim();
+
+      if (!name || !email || !model || !price) {
+        alert("❗Please fill all fields before submitting!");
+        return;
+      }
+
+      const carData = {
+        name,
+        email,
+        model,
+        price,
+        userId: loggedInUser.id,
+      };
+
+      try {
+        const res = await fetch("http://localhost:3000/api/cars", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(carData),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          alert("✅ Car listed successfully!");
+          localStorage.setItem("lastAddedCar", JSON.stringify(data.car));
+          this.reset();
+
+          // Redirect after short delay (looks smoother)
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 500);
+        } else {
+          alert("❌ Error adding car: " + (data.message || "Unknown error"));
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("❌ Server error. Please check your backend connection.");
+      }
+    });
+  </script>
 </body>
 </html>

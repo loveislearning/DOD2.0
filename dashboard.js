@@ -144,3 +144,71 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- NEW: Call the function to load data when the page opens ---
   loadUserData();
 });
+async function loadCars() {
+  const res = await fetch("http://localhost:3000/api/cars");
+  const cars = await res.json();
+  const container = document.getElementById("car-list");
+  container.innerHTML = "";
+
+  cars.forEach(car => {
+    const card = document.createElement("div");
+    card.classList.add("car-card");
+    card.innerHTML = `
+      <h3>${car.model}</h3>
+      <p><strong>Owner:</strong> ${car.name}</p>
+      <p><strong>Email:</strong> ${car.email}</p>
+      <p><strong>Price:</strong> ₹${car.price}</p>
+      <button onclick="editCar('${car.id}')">Edit</button>
+      <button onclick="deleteCar('${car.id}')">Delete</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+async function deleteCar(id) {
+  await fetch(`http://localhost:3000/api/cars/${id}`, { method: "DELETE" });
+  loadCars();
+}
+
+async function editCar(id) {
+  const newPrice = prompt("Enter new price:");
+  if (!newPrice) return;
+  await fetch(`http://localhost:3000/api/cars/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ price: newPrice })
+  });
+  loadCars();
+}
+
+window.onload = loadCars;
+const loggedInUserId = localStorage.getItem("loggedInUserId");
+
+async function loadUserCars() {
+  if (!loggedInUserId) {
+    document.getElementById("car-list").innerHTML = "<p>Please log in to see your listings.</p>";
+    return;
+  }
+
+  const res = await fetch("http://localhost:3000/api/cars");
+  const allCars = await res.json();
+  const userCars = allCars.filter(car => car.userId === loggedInUserId);
+
+  const listContainer = document.getElementById("car-list");
+  if (userCars.length === 0) {
+    listContainer.innerHTML = "<p>No cars listed yet.</p>";
+  } else {
+    listContainer.innerHTML = userCars
+      .map(car => `
+        <div class="car-card">
+          <h3>${car.model}</h3>
+          <p><strong>Price:</strong> ₹${car.price}</p>
+          <p><strong>Owner:</strong> ${car.name}</p>
+        </div>
+      `)
+      .join("");
+  }
+}
+
+loadUserCars();
+
