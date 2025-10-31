@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // --- NEW: API and User ID Setup ---
   const API_URL = 'http://localhost:3000';
   const loggedInUserId = localStorage.getItem('loggedInUserId');
 
-  // If no ID is found, redirect to login. This protects the page.
+
   if (!loggedInUserId) {
     window.location.href = 'login.html';
-    return; // Stop running the rest of the script
+    return; 
   }
 
-  // --- NEW: Get elements for populating data ---
+  
   const welcomeHeader = document.querySelector('.header-title h1');
   const viewFullName = document.getElementById('view-fullName');
   const viewEmail = document.getElementById('view-email');
@@ -18,38 +17,33 @@ document.addEventListener('DOMContentLoaded', function() {
   const editEmail = document.getElementById('edit-email');
   const editPhone = document.getElementById('edit-phone');
 
-  // --- NEW: Function to load user data from server ---
+
   async function loadUserData() {
     try {
       const res = await fetch(`${API_URL}/users/${loggedInUserId}`);
       if (!res.ok) {
-        // If the user ID is bad (e.g., deleted from db.json), go to login
         throw new Error('User not found');
       }
       const user = await res.json();
-
-      // Populate header
       welcomeHeader.textContent = `Welcome, ${user.name.split(' ')[0]}👋`;
 
-      // Populate profile view mode
+
       viewFullName.textContent = user.name;
       viewEmail.textContent = user.email;
-      viewPhone.textContent = user.phone || 'Not provided'; // Use a default if no phone
+      viewPhone.textContent = user.phone || 'Not provided'; 
 
-      // Populate profile edit mode (so the form has the current data)
       editFullName.value = user.name;
       editEmail.value = user.email;
       editPhone.value = user.phone || '';
 
     } catch (error) {
       console.error('Error loading user data:', error);
-      // Clear the bad ID and redirect to login
       localStorage.removeItem('loggedInUserId');
       window.location.href = 'login.html';
     }
   }
 
-  // --- Tab switching logic (This is your original, correct code) ---
+
   const menuLinks = document.querySelectorAll('.sidebar .menu a');
   const contentSections = document.querySelectorAll('.main-content .content-section');
 

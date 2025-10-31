@@ -1,0 +1,26 @@
+{
+  "name": "dod2.0",
+  "version": "1.0.0",
+  "description": "**DriveOnDemand** is a web-based platform that allows users to **buy, sell, and rent cars** seamlessly.  \r The system provides a user-friendly interface with secure authentication, listings management, and an efficient search system for customers to find their desired cars.",
+  "main": "dashboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loveislearning/DOD2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loveislearning/DOD2.0/issues"
+  },
+  "homepage": "https://github.com/loveislearning/DOD2.0#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

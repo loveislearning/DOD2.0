@@ -1,8 +1,8 @@
-/* --- AT THE VERY TOP OF YOUR login.js FILE --- */
-let currentUserId = null; 
-const API_URL = 'http://localhost:3000'; // Define this once at the top
 
-// !! IMPORTANT !! PASTE YOUR CLIENT ID FROM STEP 1 HERE
+let currentUserId = null; 
+const API_URL = 'http://localhost:3000'; 
+
+
 const GOOGLE_CLIENT_ID = '418403210125-a7h5rooiau9tmuggc25o71ser63aioj7.apps.googleusercontent.com';
 const showSignupBtn = document.getElementById('show-signup');
 const showLoginBtn = document.getElementById('show-login');
@@ -144,8 +144,6 @@ proceedBtn.addEventListener('click', () => {
 });
 
 
-// REPLACE your old handleFormSubmit function with this new one
-// REPLACE your old handleFormSubmit function with this new one
 async function handleFormSubmit(e, form, validations) {
     e.preventDefault();
     let isFormValid = true;
@@ -163,7 +161,7 @@ async function handleFormSubmit(e, form, validations) {
         spinner.style.display = 'block';
         button.disabled = true;
 
-        // const API_URL = 'http://localhost:3000'; // Already defined at the top
+        // const API_URL = 'http://localhost:3000';
 
         try {
             if (form.id === 'login-form') {
