@@ -1,195 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard - Drive On Demand</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="dashboard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard - Drive On Demand</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <body>
-  <div class="dashboard-container">
-    
-    <aside class="sidebar">
-      <h2 class="logo">Drive On Demand</h2>
-      <ul class="menu">
-        <li><a href="#" class="active" data-target="my-listings">My Listings</a></li>
-        <li><a href="#" data-target="saved-cars">Saved Cars</a></li>
-        <li><a href="#" data-target="transactions">My Transactions</a></li>
-        <li><a href="#" data-target="profile-settings">Profile Settings</a></li>
-        <li><a href="/#" id="logout-btn">Logout</a></li>
-      </ul>
-    </aside>
-    
-    <main class="main-content">
-      <header class="header">
-        <div class="header-title">
-          <h1>Welcome, Aman👋</h1>
-          <p>Manage your account and cars here.</p>
-        </div>
-        <a href="index.html" class="home-icon">
-          <i class="fas fa-house"></i>
-        </a>
-      </header>
+  <div class="dashboard-container">
+    
+    <aside class="sidebar">
+      <h2 class="logo">Drive On Demand</h2>
+      <ul class="menu">
+        <li><a href="#" class="active" data-target="my-listings">My Listings</a></li>
+        <li><a href="#" data-target="list-car">List My Car</a></li>
+        <li><a href="#" data-target="saved-cars">Saved Cars</a></li>
+        <li><a href="#" data-target="transactions">My Transactions</a></li>
+        <li><a href="#" data-target="profile-settings">Profile Settings</a></li>
+        <li><a href="#" id="logout-btn">Logout</a></li>
+      </ul>
+    </aside>
+    
+    <main class="main-content">
+<header class="header">
+    <div class="header-title">
+        <h1>Welcome, User👋</h1>
+        <p>Manage your account and cars here.</p>
+    </div>
+    <a href="index.html" class="home-icon">
+        <i class="fas fa-house"></i>
+    </a>
+</header>
 
-      <section id="my-listings" class="content-section active">
-        <h2>My Listings</h2>
-        <div class="listings-grid">
-          <div class="listing-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Mahindra_Scorpio_GLX_2.6_m-Hawk_2011_%2836756517492%29.jpg/1200px-Mahindra_Scorpio_GLX_2.6_m-Hawk_2011_%2836756517492%29.jpg" alt="Mahindra Scorpio">
-            <div class="listing-details">
-              <h3>Mahindra Scorpio</h3>
-              <p>Price: ₹2500/day</p>
-              <p>Status: <span class="status active">Active</span></p>
-            </div>
-            <div class="listing-actions">
-              <button class="btn btn-primary">Edit</button>
-              <button class="btn btn-danger">Delete</button>
-            </div>
-          </div>
-          <div class="listing-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Suzuki_Dzire_1.2_GL%2B_2019_%28cropped%29.jpg" alt="Maruti Suzuki Dzire">
-            <div class="listing-details">
-              <h3>Maruti Suzuki Dzire</h3>
-              <p>Price: ₹1800/day</p>
-              <p>Status: <span class="status rented">Rented Out</span></p>
-            </div>
-            <div class="listing-actions">
-              <button class="btn btn-primary">Edit</button>
-              <button class="btn btn-danger">Delete</button>
-            </div>
-          </div>
-        </div>
-      </section>
+          <section id="my-listings" class="content-section active">
+        <h2>My Listings</h2>
+        <div class="listings-grid" id="my-cars-container">
+            <p>Loading your car listings...</p>
+        </div>
+      </section>
 
-      <section id="saved-cars" class="content-section">
-        <h2>Saved Cars</h2>
-        <div class="listings-grid">
-          <div class="listing-card">
-            <img src="https://www.evoindia.com/h-upload/uid/xyVrerEaMb3sEEusWswwL99usj8nwtCr.jpg" alt="Tata Nexon EV">
-            <div class="listing-details">
-              <h3>Tata Nexon EV</h3>
-              <p>Price: ₹2200/day</p>
-              <p>Location: Dera Bassi, Punjab</p>
-            </div>
-            <div class="listing-actions">
-              <button class="btn btn-success">Book Now</button>
-              <button class="btn btn-secondary">Remove</button>
-            </div>
-          </div>
-          <div class="listing-card">
-            <img src="https://www.usnews.com/object/image/00000191-ebcd-d396-a1ff-fbdf35860001/01-usnpx-2025hyundaivenue-angularfront-jms.jpg?update-time=1726238473076&size=responsiveGallery&format=webp" alt="Hyundai Venue">
-            <div class="listing-details">
-              <h3>Hyundai Venue</h3>
-              <p>Price: ₹2000/day</p>
-              <p>Location: Mohali, Punjab</p>
-            </div>
-            <div class="listing-actions">
-              <button class="btn btn-success">Book Now</button>
-              <button class="btn btn-secondary">Remove</button>
-            </div>
-          </div>
-          </div>
-      </section>
+          <section id="list-car" class="content-section sell-form-container">
+        <h2>List Your Car for Rent/Sale</h2>
+        <form id="sell-car-form" class="profile-form">
+            <h3>Seller Information (Pre-filled from Profile)</h3>
+            <div class="form-group">
+              <label for="seller-name">Full Name</label>
+              <input type="text" id="seller-name" placeholder="Your Name" required disabled>
+            </div>
+            <div class="form-group">
+              <label for="seller-email">Email Address</label>
+              <input type="email" id="seller-email" placeholder="Your Email" required disabled>
+            </div>
+            <hr class="form-divider">
+            <h3>Car Details</h3>
+            <div class="form-group">
+              <label for="car-model">Car Model</label>
+              <input type="text" id="car-model" placeholder="e.g., Tesla Model 3" required>
+            </div>
+            <div class="form-group">
+              <label for="car-image-url">Car Image URL</label>
+              <input type="url" id="car-image-url" placeholder="Paste image link here" required>
+            </div>
+            <div class="form-group">
+              <label for="car-price">Daily Price / Sale Price</label>
+              <input type="text" id="car-price" placeholder="e.g., ₹3000/day or ₹15,00,000" required>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Submit Listing</button>
+            </div>
+        </form>
+      </section>
+    
+          <section id="saved-cars" class="content-section">
+        <h2>Saved Cars</h2>
+        <div class="listings-grid" id="saved-cars-grid">
+            <p>Loading saved cars...</p>
+        </div>
+      </section>
 
-      <section id="transactions" class="content-section">
-        <h2>My Transactions</h2>
-        <div class="table-container">
-          <table class="transactions-table">
-            <thead>
-              <tr>
-                <th>Car Name</th>
-                <th>Booking Dates</th>
-                <th>Total Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Hyundai Creta</td>
-                <td>01 Sep, 2025 - 05 Sep, 2025</td>
-                <td>₹10,000</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
-              <tr>
-                <td>Kia Seltos</td>
-                <td>15 Aug, 2025 - 17 Aug, 2025</td>
-                <td>₹7,500</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
-              <tr>
-                <td>Maruti Suzuki Dzire</td>
-                <td>20 Jul, 2025 - 22 Jul, 2025</td>
-                <td>₹3,600</td>
-                <td><span class="status cancelled">Cancelled</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <section id="car-list" class="car-grid"></section>
-<div id="car-list"></div>
-
-
-      <section id="profile-settings" class="content-section">
-        <div class="section-header">
-          <h2>Profile Settings</h2>
-          <button id="edit-profile-btn" class="btn-icon">
-            <i class="fas fa-pencil-alt"></i> Edit
-          </button>
-        </div>
-
-        <div id="profile-view-mode">
-          <div class="info-group">
-            <label>Full Name</label>
-            <p id="view-fullName">Amanpreet Singh</p>
-          </div>
-          <div class="info-group">
-            <label>Email Address</label>
-            <p id="view-email">aman.singh@example.com</p>
-          </div>
-          <div class="info-group">
-            <label>Phone Number</label>
-            <p id="view-phone">+91 98765 43210</p>
-          </div>
-        </div>
-
-        <form id="profile-edit-mode" class="profile-form hidden">
-          <div class="form-group">
-            <label for="edit-fullName">Full Name</label>
-            <input type="text" id="edit-fullName" value="Amanpreet Singh">
-          </div>
-          <div class="form-group">
-            <label for="edit-email">Email Address</label>
-            <input type="email" id="edit-email" value="aman.singh@example.com">
-          </div>
-          <div class="form-group">
-            <label for="edit-phone">Phone Number</label>
-            <input type="tel" id="edit-phone" value="+91 98765 43210">
-          </div>
-          <hr class="form-divider">
-          <h3>Change Password</h3>
-          <div class="form-group">
-            <label for="currentPassword">Current Password</label>
-            <input type="password" id="currentPassword" placeholder="Enter current password">
-          </div>
-          <div class="form-group">
-            <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" placeholder="Enter new password">
-          </div>
-          <div class="form-actions">
-            <button type="submit" id="save-profile-btn" class="btn btn-primary">Save Changes</button>
-            <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
-          </div>
-        </form>
-      </section>
-    </main>
-  </div>
-  
-  <script src="dashboard.js"></script>
-
-</body>
+          <section id="transactions" class="content-section">
+        <h2>My Transactions</h2>
+        <div class="table-container">
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Car Name</th>
+                <th>Booking Dates</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="transactions-table-body">
+                              <tr><td colspan="4">Loading transactions...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+          <section id="profile-settings" class="content-section">
+        <h2>Profile Settings</h2>
+        
+        <div id="profile-view-mode" class="profile-details-card">
+            <h3>Your Account Information</h3>
+            <p><strong>Name:</strong> <span id="view-fullName">Loading...</span></p>
+            <p><strong>Email:</strong> <span id="view-email">Loading...</span></p>
+            <p><strong>Phone:</strong> <span id="view-phone">Loading...</span></p>
+            <button id="edit-profile-btn" class="btn btn-secondary mt-3">Edit Profile</button>
+        </div>
+        
+        <form id="profile-edit-mode" class="profile-form hidden">
+            <h3>Edit Account Information</h3>
+            <div class="form-group">
+              <label for="edit-fullName">Full Name</label>
+              <input type="text" id="edit-fullName" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-email">Email Address</label>
+              <input type="email" id="edit-email" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-phone">Phone Number</label>
+              <input type="tel" id="edit-phone">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  
+  <script src="dashboard.js"></script>
 
 </body>
 </html>

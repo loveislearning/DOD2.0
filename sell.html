@@ -1,100 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sell Car - Drive On Demand</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List Car - Drive On Demand</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Drive On Demand</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="buy.html">Luxury Cars</a></li>
-        <li><a href="budget.html">Budget Cars</a></li>
-        <li><a href="sell.html" class="active">Sell</a></li>
-        <li><a href="rent.html">Rent</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="login.html">Login</a></li>
-      </ul>
-    </nav>
-  </header>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Drive On Demand</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Luxury Cars</a></li>
+        <li><a href="budget.html">Budget Cars</a></li>
+        <li><a href="sell.html" class="active">Sell</a></li>
+        <li><a href="rent.html">Rent</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <section class="page-header">
-    <h1>Sell Your Car</h1>
-    <p>Get the best price for your luxury car</p>
-  </section>
+  <section class="page-header">
+    <h1>List Your Car</h1>
+    <p>List your car for sale or rent</p>
+  </section>
 
-  <section class="form-section">
-    <form id="sellForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <input type="text" id="model" placeholder="Car Model" required />
-      <input type="text" id="price" placeholder="Car Price Expectation" required />
-      <button type="submit">Submit</button>
-    </form>
-  </section>
+  <section class="form-section">
+    <form id="sellForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="model" placeholder="Car Model (e.g., Lamborghini Huracan)" required />
+            <input type="text" id="image" placeholder="Image URL or Path (e.g., images/car1.jpeg)" required />
+      <input type="text" id="price" placeholder="Car Price Expectation (e.g., 3.5 Crore)" required />
+      <button type="submit">Submit Listing</button>
+    </form>
+  </section>
 
-  <script>
-    document.getElementById("sellForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+  <script>
+    document.getElementById("sellForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-      // ✅ Check login
-      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-      if (!loggedInUser) {
-        alert("⚠️ You must be logged in to list a car!");
-        window.location.href = "login.html";
-        return;
-      }
+      // 🔑 CRUCIAL FIX: Check login state. The dashboard script expects
+      // a user ID to be available to link the listing.
+      const storedUser = localStorage.getItem("loggedInUser");
+      const storedUserId = localStorage.getItem("loggedInUserId");
+      
+      // Prioritize the dedicated ID storage, but fall back to the object if needed.
+      let userIdToUse;
+      if (storedUserId) {
+          userIdToUse = storedUserId;
+      } else if (storedUser) {
+          const loggedInUser = JSON.parse(storedUser);
+          userIdToUse = loggedInUser.id;
+      }
 
-      // ✅ Collect form data
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const model = document.getElementById("model").value.trim();
-      const price = document.getElementById("price").value.trim();
+      if (!userIdToUse) {
+        alert("⚠️ You must be logged in to list a car! Redirecting to login.");
+        window.location.href = "login.html";
+        return;
+      }
 
-      if (!name || !email || !model || !price) {
-        alert("❗Please fill all fields before submitting!");
-        return;
-      }
+      // ✅ Collect form data including the new image field
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const model = document.getElementById("model").value.trim();
+      const image = document.getElementById("image").value.trim(); // NEW
+      const price = document.getElementById("price").value.trim();
 
-      const carData = {
-        name,
-        email,
-        model,
-        price,
-        userId: loggedInUser.id,
-      };
+      if (!name || !email || !model || !image || !price) {
+        alert("❗Please fill all fields before submitting!");
+        return;
+      }
 
-      try {
-        const res = await fetch("http://localhost:3000/api/cars", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(carData),
-        });
+      const carData = {
+        name,
+        email,
+        model,
+        image, // NEW
+        price,
+        userId: userIdToUse, // Use the dynamically retrieved user ID
+      };
 
-        const data = await res.json();
+      try {
+        const res = await fetch("http://localhost:3000/api/cars", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(carData),
+        });
 
-        if (res.ok && data.success) {
-          alert("✅ Car listed successfully!");
-          localStorage.setItem("lastAddedCar", JSON.stringify(data.car));
-          this.reset();
+        const data = await res.json();
 
-          // Redirect after short delay (looks smoother)
-          setTimeout(() => {
-            window.location.href = "dashboard.html";
-          }, 500);
-        } else {
-          alert("❌ Error adding car: " + (data.message || "Unknown error"));
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("❌ Server error. Please check your backend connection.");
-      }
-    });
-  </script>
+        if (res.ok && data.success) {
+          alert("✅ Car listed successfully!");
+          // Storing the last added car is optional but fine
+          localStorage.setItem("lastAddedCar", JSON.stringify(data.car)); 
+          this.reset();
+
+          // Redirect to the dashboard
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 500);
+        } else {
+          alert("❌ Error adding car: " + (data.message || "Unknown error"));
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("❌ Server error. Please check your backend connection (http://localhost:3000).");
+      }
+    });
+  </script>
+<script src="sell.js"></script>
 </body>
 </html>

@@ -42,7 +42,40 @@
       "name": "Shally Chauhan",
       "email": "shallychauhan@gmail.com",
       "password": "Shally@3003"
+    },
+    {
+      "id": "813e",
+      "name": "sherani",
+      "email": "sheranigoyal@gmail.com",
+      "password": "sherani12"
+    },
+    {
+      "id": "5214",
+      "name": "irika",
+      "email": "irikagoyal@gmail.com",
+      "password": "sherani123"
     }
   ],
-  "cars": []
+  "cars": [
+    {
+      "id": "2c0f",
+      "name": "",
+      "email": "",
+      "model": "tesla",
+      "image": "https://tse2.mm.bing.net/th/id/OIF.gyTUTFlWiYznhKzaco7nYA?pid=Api&P=0&h=180",
+      "price": "15l",
+      "userId": "813e"
+    },
+    {
+      "id": "c86b",
+      "name": "",
+      "email": "",
+      "model": "audi",
+      "image": "https://cdn.motor1.com/images/mgl/vxKl9K/s1/2024-audi-rs7-performance-review.jpg",
+      "price": "12l",
+      "userId": "813e"
+    }
+  ],
+  "saved-cars": [],
+  "transactions": []
 }
