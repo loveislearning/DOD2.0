@@ -1,138 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard - Drive On Demand</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Drive On Demand</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    
-    <aside class="sidebar">
-      <h2 class="logo">Drive On Demand</h2>
-      <ul class="menu">
-        <li><a href="#" class="active" data-target="my-listings">My Listings</a></li>
-        <li><a href="#" data-target="list-car">List My Car</a></li>
-        <li><a href="#" data-target="saved-cars">Saved Cars</a></li>
-        <li><a href="#" data-target="transactions">My Transactions</a></li>
-        <li><a href="#" data-target="profile-settings">Profile Settings</a></li>
-        <li><a href="#" id="logout-btn">Logout</a></li>
-      </ul>
-    </aside>
-    
-    <main class="main-content">
-<header class="header">
-    <div class="header-title">
-        <h1>Welcome, User👋</h1>
-        <p>Manage your account and cars here.</p>
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <h2 class="logo">Drive On Demand</h2>
+            <ul class="menu">
+                <li><a href="#" class="active" data-target="my-listings">My Listings</a></li>
+                <li><a href="#" data-target="list-car">List My Car</a></li>
+                <li><a href="#" data-target="saved-cars">Available Rentals</a></li> 
+                <li><a href="#" data-target="transactions">My Transactions</a></li>
+                <li><a href="#" data-target="profile-settings">Profile Settings</a></li>
+                <li><a href="#" id="logout-btn">Logout</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <header class="header">
+                <div class="header-title">
+                    <h1>Welcome, User👋</h1>
+                    <p>Manage your account and cars here.</p>
+                </div>
+                <a href="index.html" class="home-icon">
+                    <i class="fas fa-house"></i>
+                </a>
+            </header>
+
+            <section id="my-listings" class="content-section active">
+                <h2>My Listings (For Sale)</h2>
+                <div class="listings-grid" id="my-cars-container">
+                    <p>Loading your car listings...</p>
+                </div>
+            </section>
+
+            <section id="list-car" class="content-section sell-form-container">
+                <h2>List Your Car</h2>
+                <form id="sell-car-form" class="profile-form">
+                    <h3>Seller Information</h3>
+                    <div class="form-group">
+                        <label for="seller-name">Full Name</label>
+                        <input type="text" id="seller-name" placeholder="Your Name" required disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="seller-email">Email Address</label>
+                        <input type="email" id="seller-email" placeholder="Your Email" required disabled>
+                    </div>
+                    <hr class="form-divider">
+                    <h3>Car Details</h3>
+                    <div class="form-group">
+                        <label for="car-model">Car Model</label>
+                        <input type="text" id="car-model" placeholder="e.g., Tesla Model 3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="car-image-url">Car Image URL</label>
+                        <input type="url" id="car-image-url" placeholder="Paste image link here" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="listing-type">Listing Type</label>
+                        <select id="listing-type" required>
+                            <option value="" disabled selected>Select listing type</option>
+                            <option value="sale">For Sale</option>
+                            <option value="rent">For Rent</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="car-price">Price</label>
+                        <input type="text" id="car-price" placeholder="e.g., ₹3000/day or ₹15,00,000" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Listing</button>
+                    </div>
+                </form>
+            </section>
+        
+            <section id="saved-cars" class="content-section">
+                <h2>Available Rentals</h2>
+                <div class="listings-grid" id="saved-cars-grid">
+                    <p>Loading available rental cars...</p>
+                </div>
+            </section>
+
+            <section id="transactions" class="content-section">
+                <h2>My Transactions</h2>
+                <div class="table-container">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Car Name</th>
+                                <th>Booking Dates</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-table-body">
+                            <tr><td colspan="4">Loading transactions...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="profile-settings" class="content-section">
+                <h2>Profile Settings</h2>
+                
+                <div id="profile-view-mode" class="profile-details-card">
+                    <h3>Your Account Information</h3>
+                    <p><strong>Name:</strong> <span id="view-fullName">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="view-email">Loading...</span></p>
+                    <p><strong>Phone:</strong> <span id="view-phone">Loading...</span></p>
+                    <button id="edit-profile-btn" class="btn btn-secondary mt-3">Edit Profile</button>
+                </div>
+                
+                <form id="profile-edit-mode" class="profile-form hidden">
+                    <h3>Edit Account Information</h3>
+                    <div class="form-group">
+                        <label for="edit-fullName">Full Name</label>
+                        <input type="text" id="edit-fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email">Email Address</label>
+                        <input type="email" id="edit-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone">Phone Number</label>
+                        <input type="tel" id="edit-phone">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </main>
     </div>
-    <a href="index.html" class="home-icon">
-        <i class="fas fa-house"></i>
-    </a>
-</header>
-
-          <section id="my-listings" class="content-section active">
-        <h2>My Listings</h2>
-        <div class="listings-grid" id="my-cars-container">
-            <p>Loading your car listings...</p>
-        </div>
-      </section>
-
-          <section id="list-car" class="content-section sell-form-container">
-        <h2>List Your Car for Rent/Sale</h2>
-        <form id="sell-car-form" class="profile-form">
-            <h3>Seller Information (Pre-filled from Profile)</h3>
-            <div class="form-group">
-              <label for="seller-name">Full Name</label>
-              <input type="text" id="seller-name" placeholder="Your Name" required disabled>
-            </div>
-            <div class="form-group">
-              <label for="seller-email">Email Address</label>
-              <input type="email" id="seller-email" placeholder="Your Email" required disabled>
-            </div>
-            <hr class="form-divider">
-            <h3>Car Details</h3>
-            <div class="form-group">
-              <label for="car-model">Car Model</label>
-              <input type="text" id="car-model" placeholder="e.g., Tesla Model 3" required>
-            </div>
-            <div class="form-group">
-              <label for="car-image-url">Car Image URL</label>
-              <input type="url" id="car-image-url" placeholder="Paste image link here" required>
-            </div>
-            <div class="form-group">
-              <label for="car-price">Daily Price / Sale Price</label>
-              <input type="text" id="car-price" placeholder="e.g., ₹3000/day or ₹15,00,000" required>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Submit Listing</button>
-            </div>
-        </form>
-      </section>
-    
-          <section id="saved-cars" class="content-section">
-        <h2>Saved Cars</h2>
-        <div class="listings-grid" id="saved-cars-grid">
-            <p>Loading saved cars...</p>
-        </div>
-      </section>
-
-          <section id="transactions" class="content-section">
-        <h2>My Transactions</h2>
-        <div class="table-container">
-          <table class="transactions-table">
-            <thead>
-              <tr>
-                <th>Car Name</th>
-                <th>Booking Dates</th>
-                <th>Total Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="transactions-table-body">
-                              <tr><td colspan="4">Loading transactions...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      
-          <section id="profile-settings" class="content-section">
-        <h2>Profile Settings</h2>
-        
-        <div id="profile-view-mode" class="profile-details-card">
-            <h3>Your Account Information</h3>
-            <p><strong>Name:</strong> <span id="view-fullName">Loading...</span></p>
-            <p><strong>Email:</strong> <span id="view-email">Loading...</span></p>
-            <p><strong>Phone:</strong> <span id="view-phone">Loading...</span></p>
-            <button id="edit-profile-btn" class="btn btn-secondary mt-3">Edit Profile</button>
-        </div>
-        
-        <form id="profile-edit-mode" class="profile-form hidden">
-            <h3>Edit Account Information</h3>
-            <div class="form-group">
-              <label for="edit-fullName">Full Name</label>
-              <input type="text" id="edit-fullName" required>
-            </div>
-            <div class="form-group">
-              <label for="edit-email">Email Address</label>
-              <input type="email" id="edit-email" required>
-            </div>
-            <div class="form-group">
-              <label for="edit-phone">Phone Number</label>
-              <input type="tel" id="edit-phone">
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Save Changes</button>
-              <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
-            </div>
-        </form>
-      </section>
-    </main>
-  </div>
-  
-  <script src="dashboard.js"></script>
-
+    
+    <script src="dashboard.js"></script>
 </body>
 </html>

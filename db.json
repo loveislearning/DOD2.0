@@ -47,7 +47,8 @@
       "id": "813e",
       "name": "sherani",
       "email": "sheranigoyal@gmail.com",
-      "password": "sherani12"
+      "password": "sherani12",
+      "phone": "9316117306"
     },
     {
       "id": "5214",
@@ -58,15 +59,6 @@
   ],
   "cars": [
     {
-      "id": "2c0f",
-      "name": "",
-      "email": "",
-      "model": "tesla",
-      "image": "https://tse2.mm.bing.net/th/id/OIF.gyTUTFlWiYznhKzaco7nYA?pid=Api&P=0&h=180",
-      "price": "15l",
-      "userId": "813e"
-    },
-    {
       "id": "c86b",
       "name": "",
       "email": "",
@@ -74,8 +66,40 @@
       "image": "https://cdn.motor1.com/images/mgl/vxKl9K/s1/2024-audi-rs7-performance-review.jpg",
       "price": "12l",
       "userId": "813e"
+    },
+    {
+      "id": "8400",
+      "name": "sherani",
+      "email": "sheranigoyal@gmail.com",
+      "model": "tesla",
+      "image": "https://tse2.mm.bing.net/th/id/OIF.gyTUTFlWiYznhKzaco7nYA?pid=Api&P=0&h=180",
+      "price": "15l",
+      "listingType": "sale",
+      "userId": "813e"
     }
   ],
   "saved-cars": [],
-  "transactions": []
+  "transactions": [],
+  "rentals": [
+    {
+      "id": "4047",
+      "name": "sherani",
+      "email": "sheranigoyal@gmail.com",
+      "model": "audi",
+      "image": "https://cdn.motor1.com/images/mgl/vxKl9K/s1/2024-audi-rs7-performance-review.jpg",
+      "price": "15l",
+      "listingType": "rent",
+      "userId": "813e"
+    },
+    {
+      "id": "72b0",
+      "name": "sherani",
+      "email": "sheranigoyal@gmail.com",
+      "model": "tesla",
+      "image": "https://tse2.mm.bing.net/th/id/OIF.gyTUTFlWiYznhKzaco7nYA?pid=Api&P=0&h=180",
+      "price": "12l",
+      "listingType": "rent",
+      "userId": "813e"
+    }
+  ]
 }
