@@ -1,8 +1,7 @@
-
 let currentUserId = null; 
 const API_URL = 'http://localhost:3000'; 
 
-
+// [ ... All the unchanged variable declarations ... ]
 const GOOGLE_CLIENT_ID = '418403210125-a7h5rooiau9tmuggc25o71ser63aioj7.apps.googleusercontent.com';
 const showSignupBtn = document.getElementById('show-signup');
 const showLoginBtn = document.getElementById('show-login');
@@ -54,7 +53,6 @@ setupPasswordToggle('login-password', 'toggle-login-password');
 setupPasswordToggle('signup-password', 'toggle-signup-password');
 setupPasswordToggle('signup-confirm-password', 'toggle-confirm-password');
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function validateInput(input, errorElement, validationFn) {
     const isValid = validationFn(input.value);
     if (isValid) {
@@ -66,6 +64,8 @@ function validateInput(input, errorElement, validationFn) {
     }
     return isValid;
 }
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const loginEmail = document.getElementById('login-email');
 const loginEmailError = document.getElementById('login-email-error');
@@ -81,7 +81,6 @@ signupEmail.addEventListener('input', () => validateInput(signupEmail, signupEma
 signupPassword.addEventListener('input', () => validateInput(signupPassword, signupPasswordError, val => val.length >= 8));
 confirmPassword.addEventListener('input', () => validateInput(confirmPassword, confirmPasswordError, val => val === signupPassword.value));
 
-// --- Password Strength Meter Logic ---
 const strengthMeter = document.getElementById('strength-meter');
 const strengthText = document.getElementById('strength-text');
 const strengthBars = strengthMeter.querySelectorAll('.strength-bar');
@@ -139,9 +138,10 @@ function showSuccessModal(title, text) {
     successModal.classList.add('show');
 }
 
-proceedBtn.addEventListener('click', () => {
-    window.location.href = './dashboard.html';
-});
+// FIX: Remove the manual redirect listener, we will redirect directly in the form handlers.
+// proceedBtn.addEventListener('click', () => {
+//     window.location.href = './dashboard.html';
+// });
 
 
 async function handleFormSubmit(e, form, validations) {
@@ -161,31 +161,35 @@ async function handleFormSubmit(e, form, validations) {
         spinner.style.display = 'block';
         button.disabled = true;
 
-        // const API_URL = 'http://localhost:3000';
-
         try {
             if (form.id === 'login-form') {
-                // --- LOGIN LOGIC (This was already correct) ---
+                // --- 🔑 LOGIN LOGIC ---
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
 
-                const res = await fetch(`${API_URL}/users?email=${email}&password=${password}`);
-                const matchingUsers = await res.json();
+                // 1. Fetch all users
+                const res = await fetch(`${API_URL}/users`);
+                const allUsers = await res.json();
+                
+                // 2. Filter client-side
+                const user = allUsers.find(
+                    u => u.email === email && u.password === password
+                );
 
-                if (matchingUsers.length > 0) {
-                    const user = matchingUsers[0]; // Get the user object
-                    
-                    // --- !! MODIFICATION !! ---
-                    // Save the user's ID to localStorage
+                if (user) {
+                    // --- 🔥 CRUCIAL FIX for the loop: Save ID and REDIRECT immediately ---
                     localStorage.setItem('loggedInUserId', user.id); 
                     
-                    showSuccessModal("Login Successful!", "Welcome back. You will be redirected to your dashboard.");
+                    // You can still show the modal briefly if you want, but the redirect is key.
+                    // For a smooth experience, we just redirect.
+                    window.location.href = './dashboard.html'; 
+
                 } else {
                     if (genericLoginError) genericLoginError.style.display = 'block';
                 }
 
             } else if (form.id === 'signup-form') {
-                // --- SIGNUP LOGIC (Modified) ---
+                // --- SIGNUP LOGIC ---
                 const name = document.getElementById('signup-name').value;
                 const email = document.getElementById('signup-email').value;
                 const password = document.getElementById('signup-password').value;
@@ -200,42 +204,44 @@ async function handleFormSubmit(e, form, validations) {
                     document.getElementById('signup-email').classList.add('invalid');
                 } else {
                     const newUser = { name, email, password };
+                    
+                    // Post the new user
                     const res = await fetch(`${API_URL}/users`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newUser)
                     });
 
-                    const createdUser = await res.json(); // Get the new user back from the server
-                    currentUserId = createdUser.id; // <--- !! KEY FIX !! Store the new user's ID
+                    const createdUser = await res.json();
+                    currentUserId = createdUser.id; // Store the new user's ID globally
 
                     switchForms(signupFormContainer, detailsFormContainer);
                 }
 
             } else if (form.id === 'details-form') {
-                // --- DETAILS LOGIC (Modified) ---
-                if (currentUserId) { // Check if we have a user ID to update
+                // --- DETAILS LOGIC ---
+                if (currentUserId) { 
                     const phone = document.getElementById('phone').value;
                     const address = document.getElementById('address').value;
                     const dob = document.getElementById('dob').value;
 
                     const profileDetails = { phone, address, dob };
 
-                    // Use PATCH to update *only* these new fields
                     await fetch(`${API_URL}/users/${currentUserId}`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(profileDetails)
                     });
                     
-                    // --- !! MODIFICATION !! ---
-                    // Save the new user's ID to localStorage so they are logged in
+                    // --- 🔥 CRUCIAL FIX for the loop: Log in the new user and REDIRECT ---
                     localStorage.setItem('loggedInUserId', currentUserId);
 
-                    showSuccessModal("Profile Complete!", "Your account is all set up. Welcome to Drive on Demand!");
-                    currentUserId = null; // Clear the ID after use
+                    // Redirect immediately after successful signup/details to prevent the loop
+                    window.location.href = './dashboard.html'; 
+
+                    currentUserId = null; // Clear temporary ID
+
                 } else {
-                    // This case shouldn't happen, but it's good to have
                     console.error("No user ID to update details for.");
                     switchForms(detailsFormContainer, loginFormContainer);
                 }
@@ -272,7 +278,7 @@ signupForm.addEventListener('submit', (e) => {
     handleFormSubmit(e, signupForm, validations);
 });
 
-detailsForm.addEventListener('submit', (e) => { handleFormSubmit(e, detailsForm, []); });
-
-// document.querySelector('.google-login-btn').addEventListener('click', () => console.log('Login with Google clicked'));
-// document.querySelector('.google-signup-btn').addEventListener('click', () => console.log('Sign up with Google clicked'));
+detailsForm.addEventListener('submit', (e) => { 
+    // We pass an empty array for validations for the details form
+    handleFormSubmit(e, detailsForm, []); 
+});
