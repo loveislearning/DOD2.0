@@ -4,9 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const loggedInUserId = localStorage.getItem('loggedInUserId');
     
     // --- DOM Elements ---
+    // These container elements will now be controlled by React
     const carsContainer = document.getElementById('my-cars-container'); 
-    const sellCarForm = document.getElementById('sell-car-form'); 
     const savedCarsContainer = document.getElementById('saved-cars-grid');
+
+    // Vanilla JS elements (kept as is)
+    const sellCarForm = document.getElementById('sell-car-form'); 
     const transactionsTableBody = document.getElementById('transactions-table-body');
     const welcomeHeader = document.querySelector('.header-title h1');
     const viewFullName = document.getElementById('view-fullName');
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return; 
     }
 
-    // --- User Data Load ---
+    // --- User Data Load (Unchanged) ---
     async function loadUserData() {
         try {
             const res = await fetch(`${API_URL}/users/${loggedInUserId}`);
@@ -62,123 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- 2. Listings (My Cars - SALE) Functions ---
-    
-    function createListingCardHTML(car, endpointType) {
-        // endpointType is 'cars' for Sale (My Listings) or 'rentals' for Rent (Available Rentals)
-        const isRental = endpointType === 'rentals';
-        
-        const priceLabel = isRental ? 'Daily Price:' : 'Sale Price:';
-        const actions = isRental 
-            ? `<div class="listing-actions">
-                  <button class="btn btn-success">Book Now</button>
-                  <button class="btn btn-secondary" data-id="${car.id}">Inquire</button>
-               </div>`
-            : `<div class="listing-actions">
-                  <button class="btn btn-primary">Edit</button>
-                  <button class="btn btn-danger delete-btn" data-id="${car.id}">Delete</button>
-               </div>`;
-
-        return `
-            <div class="listing-card" data-car-id="${car.id}">
-                <img src="${car.image || 'placeholder.jpg'}" alt="${car.model}">
-                <div class="listing-details">
-                    <h3>${car.model}</h3>
-                    <p>${priceLabel} ${car.price}</p>
-                    <p>Type: ${isRental ? 'RENT' : 'SALE'}</p>
-                    <p>Status: <span class="status active">Active</span></p>
-                </div>
-                ${actions}
-            </div>
-        `;
-    }
-
-    async function loadUserListings() {
-        if (!carsContainer) return;
-        carsContainer.innerHTML = '<p>Fetching your listings...</p>';
-        
-        try {
-            // Load SALE listings owned by the user
-            const res = await fetch(`${API_URL}/cars?userId=${loggedInUserId}`); 
-            if (!res.ok) throw new Error('Failed to fetch car listings');
-
-            const userCars = await res.json();
-            
-            if (userCars.length === 0) {
-                 carsContainer.innerHTML = '<h2>You currently have no cars listed for SALE. Go to the <a href="#" data-target="list-car" class="sidebar-link-trigger">List My Car</a> tab to add one!</h2>';
-                 
-                 carsContainer.querySelector('.sidebar-link-trigger').addEventListener('click', function(e) {
-                     e.preventDefault();
-                     const targetId = this.getAttribute('data-target');
-                     document.querySelector(`.sidebar .menu a[data-target="${targetId}"]`).click();
-                 });
-                 return;
-            }
-            // Use 'cars' as the endpointType indicator
-            carsContainer.innerHTML = userCars.map(car => createListingCardHTML(car, 'cars')).join('');
-            
-            carsContainer.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', handleDeleteListing);
-            });
-
-        } catch (error) {
-            console.error('Error loading car listings:', error);
-            carsContainer.innerHTML = '<p>❌ Server error loading SALE listings. Please check your server connection.</p>';
-        }
-    }
-    
-    async function handleDeleteListing(event) {
-        const carId = event.target.dataset.id;
-        if (!confirm(`Are you sure you want to delete Car ID ${carId}? This is a permanent Sale listing deletion.`)) return;
-
-        try {
-            const res = await fetch(`${API_URL}/cars/${carId}`, {
-                method: 'DELETE',
-            });
-
-            if (res.ok) {
-                alert('Sale Listing removed successfully!');
-                loadUserListings(); 
-            } else {
-                alert('Failed to delete listing.');
-            }
-        } catch (error) {
-            console.error('Error during deletion:', error);
-            alert('An error occurred while trying to remove the listing.');
-        }
-    }
+    // --- 2. LISTING FUNCTIONS (REPLACED BY REACT) ---
+    // All functions for loading and rendering car listings have been moved 
+    // into src/ListingsApp.jsx and are called via window.renderReactListings.
 
 
-    // --- 3. Saved Cars (Available Rentals) Function ---
-
-    async function loadAvailableRentals() {
-        if (!savedCarsContainer) return;
-        savedCarsContainer.innerHTML = '<p>Fetching available rental cars...</p>';
-
-        try {
-            // Load ALL rental listings from the new 'rentals' endpoint
-            const res = await fetch(`${API_URL}/rentals`);
-            if (!res.ok) throw new Error('Failed to fetch available rentals');
-            
-            const availableRentals = await res.json();
-            
-            if (availableRentals.length === 0) {
-                savedCarsContainer.innerHTML = '<h2>There are currently no cars listed for rent.</h2>';
-                return;
-            }
-
-            // Use 'rentals' as the endpointType indicator
-            savedCarsContainer.innerHTML = availableRentals.map(car => createListingCardHTML(car, 'rentals')).join('');
-            
-        } catch (error) {
-            console.error('Error loading available rentals:', error);
-            savedCarsContainer.innerHTML = '<p>❌ Server error loading rentals. Please check your server connection and db.json structure (needs a "rentals" array).</p>';
-        }
-    }
-    
-    // --- 4. Transactions Function (Unchanged) ---
+    // --- 3. Transactions Function (Unchanged) ---
     function createTransactionRowHTML(transaction) {
-        // ... (HTML logic for transactions row)
         const statusClass = transaction.status.toLowerCase().includes('completed') ? 'completed' : 
                             transaction.status.toLowerCase().includes('cancelled') ? 'cancelled' : 'active';
         return `
@@ -215,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- 5. Navigation & Event Listeners ---
+    // --- 4. Navigation & Event Listeners (UPDATED) ---
     
     menuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -223,16 +116,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetId = this.getAttribute('data-target');
             
-            // Dynamic Content Loading based on tab click
+            // Dynamic Content Loading: Calls the React function for car/rental tabs
             if (targetId === 'my-listings') {
-                loadUserListings();
+                // Call React for My Listings (endpoint: 'cars')
+                if (window.renderReactListings && carsContainer) {
+                    window.renderReactListings(carsContainer, loggedInUserId, 'cars'); 
+                }
             } else if (targetId === 'saved-cars') {
-                loadAvailableRentals(); // Use the new function for rentals
+                // Call React for Available Rentals (endpoint: 'rentals')
+                if (window.renderReactListings && savedCarsContainer) {
+                    window.renderReactListings(savedCarsContainer, loggedInUserId, 'rentals'); 
+                }
             } else if (targetId === 'transactions') {
-                loadTransactions();
+                loadTransactions(); // Still vanilla JS
             }
             
-            // UI Update Logic
+            // UI Update Logic (Unchanged)
             menuLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
@@ -245,12 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 🔑 Car Listing Submission Handler (UPDATED LOGIC)
+    // 🔑 Car Listing Submission Handler (UPDATED to trigger React refresh)
     if (sellCarForm) {
         sellCarForm.addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const listingType = document.getElementById('listing-type').value; // Get new field
+            const listingType = document.getElementById('listing-type').value; 
             const carData = {
                 name: document.getElementById('seller-name').value, 
                 email: document.getElementById('seller-email').value,
@@ -270,10 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
             let successMessage = '';
 
             if (listingType === 'sale') {
-                targetEndpoint = 'cars'; // My Listings
+                targetEndpoint = 'cars'; 
                 successMessage = 'Car listed for SALE successfully! Check the "My Listings" tab.';
             } else if (listingType === 'rent') {
-                targetEndpoint = 'rentals'; // Available Rentals
+                targetEndpoint = 'rentals';
                 successMessage = 'Car listed for RENT successfully! Check the "Available Rentals" tab.';
             } 
 
@@ -288,9 +187,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(successMessage);
                     sellCarForm.reset(); 
                     
-                    // Switch to the relevant tab
+                    // Switch to the relevant tab (will trigger the React refresh via menuLinks click listener)
                     const targetTabId = (listingType === 'sale') ? 'my-listings' : 'saved-cars';
-                    document.querySelector(`.sidebar .menu a[data-target="${targetTabId}"]`).click();
+                    const targetLink = document.querySelector(`.sidebar .menu a[data-target="${targetTabId}"]`);
+                    
+                    // Trigger the click event to switch tabs and refresh React view
+                    if (targetLink) targetLink.click();
                     
                 } else {
                     const errorData = await res.json();
@@ -366,5 +268,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INITIALIZATION ---
     loadUserData();
-    loadUserListings(); 
+    
+    // *** NEW REACT CALL FOR DEFAULT TAB (My Listings) ***
+    // Checks if the function exists (meaning the bundle loaded) and the container exists
+    if (window.renderReactListings && carsContainer) {
+        window.renderReactListings(carsContainer, loggedInUserId, 'cars'); 
+    }
 });
